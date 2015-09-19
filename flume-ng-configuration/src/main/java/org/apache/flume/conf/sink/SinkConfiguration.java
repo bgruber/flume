@@ -87,7 +87,7 @@ public class SinkConfiguration extends ComponentConfiguration {
      *
      * @see LoggerSink
      */
-    LOGGER(null),
+    LOGGER("org.apache.flume.conf.sink.LoggerSinkConfiguration"),
 
     /**
      * Rolling file sink
