@@ -70,4 +70,9 @@ public class EventHelper {
     }
     return "{ headers:" + event.getHeaders() + " body:" + buffer + " }";
   }
+
+  public static String stringifyEvent(Event event) {
+    String bodyString = new String(event.getBody());
+    return "{ headers:" + event.getHeaders() + " body:" + bodyString + " }";
+  }
 }

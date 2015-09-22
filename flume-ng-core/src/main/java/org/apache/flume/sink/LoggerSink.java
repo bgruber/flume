@@ -64,6 +64,10 @@ public class LoggerSink extends AbstractSink implements Configurable {
 
   public static final String MAX_BYTES_DUMP_KEY = "maxBytesToLog";
 
+  // Whether to make a hex-dump of the event body or just dump it out as a string
+  public static final String HEX_DUMP_KEY = "hexDump";
+  private boolean hexDump;
+
   @Override
   public void configure(Context context) {
     String strMaxBytes = context.getString(MAX_BYTES_DUMP_KEY);
@@ -76,6 +80,8 @@ public class LoggerSink extends AbstractSink implements Configurable {
         maxBytesToLog = DEFAULT_MAX_BYTE_DUMP;
       }
     }
+
+    hexDump = context.getBoolean(HEX_DUMP_KEY, true);
   }
 
   @Override
@@ -91,7 +97,10 @@ public class LoggerSink extends AbstractSink implements Configurable {
 
       if (event != null) {
         if (logger.isInfoEnabled()) {
-          logger.info("Event: " + EventHelper.dumpEvent(event, maxBytesToLog));
+          String eventInfoString = hexDump
+            ? EventHelper.dumpEvent(event, maxBytesToLog)
+            : EventHelper.stringifyEvent(event);
+          logger.info("Event: " + eventInfoString);
         }
       } else {
         // No event found, request back-off semantics from the sink runner
