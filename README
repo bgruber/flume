@@ -1,4 +1,8 @@
-h1. Welcome to Apache Flume!
+h1. Welcome to Apache Flume, modified to debug avro payloads!
+
+This is a fork of flume with 2 significant changes:
+* An interceptor that transforms an Avro message body into JSON
+* Tweaks to the LoggerSink to log a string for the body instead of a binary blob
 
 Apache Flume is a distributed, reliable, and available service for efficiently
 collecting, aggregating, and moving large amounts of log data. It has a simple
